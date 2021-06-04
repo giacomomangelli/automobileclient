@@ -1,0 +1,113 @@
+<div class="container">
+    <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{errorMessage}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class='card'>
+        <div class='card-header'>
+            <h5>Inserisci nuovo elemento</h5>
+        </div>
+        <div class='card-body'>
+
+            <h6 class="card-title">I campi con <span class="text-danger">*</span> sono obbligatori</h6>
+
+            <form (ngSubmit)="save(automobileForm)" #automobileForm="ngForm" novalidate>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Marca <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="Inserire la marca" required minlength="2"
+                            id="marca" name="marca" [(ngModel)]="automobile.marca" #marcaVar="ngModel"
+                            [ngClass]="{'is-invalid': (marcaVar.touched || marcaVar.dirty) && !marcaVar.valid }">
+                        <span class="invalid-feedback">
+                            <span *ngIf="marcaVar.errors?.required">
+                                Prego inserire un valore
+                            </span>
+                            <span *ngIf="marcaVar.errors?.minlength">
+                                Il campo deve avere almeno due caratteri.
+                            </span>
+                        </span>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label>Modello <span class="text-danger">*</span></label>
+                        <input type="text" id="modello" class="form-control" placeholder="Inserire il modello" required
+                            minlength="2" name="modello" [(ngModel)]="automobile.modello" #modelloVar="ngModel"
+                            [ngClass]="{'is-invalid': (modelloVar.touched || modelloVar.dirty) && !modelloVar.valid }">
+                        <span class="invalid-feedback">
+                            <span *ngIf="modelloVar.errors?.required">
+                                Prego inserire un valore
+                            </span>
+                            <span *ngIf="modelloVar.errors?.minlength">
+                                Il campo deve avere almeno due caratteri.
+                            </span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label>Data di immatricolazione<span class="text-danger">*</span></label>
+                        <input class="form-control" id="dataImmatricolazione" type="date" placeholder="dd/MM/yy"
+                            title="formato : gg/mm/aaaa" required name="dataImmatricolazione"
+                            [(ngModel)]="automobile.dataImmatricolazione" #dataImmatricolazioneVar="ngModel"
+                            [ngClass]="{'is-invalid': (dataImmatricolazioneVar.touched || dataImmatricolazioneVar.dirty) && !dataImmatricolazioneVar.valid }">
+                        <span class="invalid-feedback">
+                            <span *ngIf="!dataImmatricolazioneVar.valid">
+                                Il campo deve essere correttamente valorizzato
+                            </span>
+                        </span>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label>Targa <span class="text-danger">*</span></label>
+                        <input type="text" id="targa" class="form-control" placeholder="Inserire la targa" required
+                            minlength="2" name="targa" [(ngModel)]="automobile.targa" #targaVar="ngModel"
+                            [ngClass]="{'is-invalid': (targaVar.touched || targaVar.dirty) && !targaVar.valid }">
+                        <span class="invalid-feedback">
+                            <span *ngIf="targaVar.errors?.required">
+                                Prego inserire un valore
+                            </span>
+                            <span *ngIf="targaVar.errors?.minlength">
+                                Il campo deve avere almeno due caratteri.
+                            </span>
+                        </span>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <p>In Produzione <span class="text-danger">*</span>:</p>
+                        <div class="form-check-inline ml-1">
+                            <input class="form-check-input" type="radio" id="inProduzioneTrueId" [value]="true" required
+                                name="inProduzione" [(ngModel)]="automobile.inProduzione">
+                            <label class="form-check-label" for="inProduzioneTrueId">
+                                SI
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <input class="form-check-input" type="radio" id="inProduzioneFalseId" [value]="false"
+                                required name="inProduzione" [(ngModel)]="automobile.inProduzione">
+                            <label class="form-check-label" for="inProduzioneFalseId">
+                                NO
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+
+                    <button type="submit" [disabled]="!automobileForm.valid" class="btn btn-primary">Conferma</button>
+
+                    <a routerLink="/automobile/search" class='btn btn-secondary ml-2'>
+                        <i class='fa fa-chevron-left'></i> Torna alla ricerca
+                    </a>
+
+
+            </form>
+
+
+            <!-- end card-body -->
+        </div>
+    </div>
+</div>
